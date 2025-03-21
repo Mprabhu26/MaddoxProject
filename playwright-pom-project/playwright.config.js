@@ -9,7 +9,7 @@ export default defineConfig({
 
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
-  retries: 2,
+  retries: 0,
   workers: 1,
   reporter: 'html',
 
@@ -31,8 +31,8 @@ export default defineConfig({
 
   webServer: {
     command: 'npm run dev',
-    cwd: path.join(__dirname, '../qa-homework-mirror'), // Correct relative path
-    url: 'http://localhost:3000', // Change if needed
+    cwd: path.join(__dirname, '../qa-homework-mirror'), 
+    url: 'http://localhost:3000', 
     timeout: 60 * 1000,
     reuseExistingServer: !process.env.CI,
   },

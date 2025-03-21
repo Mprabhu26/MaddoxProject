@@ -1,0 +1,27 @@
+{
+    "validUser": {
+      "email": "test@maddox123.ai",
+      "password": "supersecure"
+    },
+    "invalidPassword": {
+      "email": "test@maddox123.ai",
+      "password": "supersecure22"
+    },
+    "emailWithoutattherate": {
+      "email": "test",
+      "password": "supersecure22"
+    },
+    "emptyEmail": {
+      "email": " ",
+      "password": "supersecure22"
+    },
+    "invalidEmail": {
+      "email": "test@maddox123",
+      "password": "supersecure22"
+    },
+    "emptyPassword": {
+      "email": "test@maddox123,ai",
+      "password": ""
+    }
+  }
+  

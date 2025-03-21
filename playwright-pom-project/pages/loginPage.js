@@ -1,4 +1,6 @@
 import LOCATORS from '../utils/locators.js';
+import { expect } from '@playwright/test';
+
 
 class LoginPage {
   constructor(page) {
@@ -13,12 +15,38 @@ class LoginPage {
 
   async getErrorMessage() {
     const errorMessageLocator = this.page.locator(LOCATORS.LOGIN.ERROR_MESSAGE);
-    await errorMessageLocator.waitFor(); // Ensure it's visible before retrieving text
+    await errorMessageLocator.waitFor(); // wait till it becomes visble to get text
+    console.log(errorMessageLocator.innerText());
     return errorMessageLocator.innerText();
+    
   }
 
   async isErrorMessageVisible() {
     return await this.page.locator(LOCATORS.LOGIN.ERROR_MESSAGE).isVisible();
+  }
+
+  async EmailWithoutampersand() {
+    const emailInput = this.page.locator(LOCATORS.LOGIN.USERNAME_INPUT); 
+    const validationMessage = await emailInput.evaluate(el => el.validationMessage);
+    console.log(`Validation Message: ${validationMessage}`);
+    expect(validationMessage).toContain("Please include an '@' in the email address.");
+    return validationMessage;
+  }
+
+  async emptyEmail() {
+    const emailInput = this.page.locator(LOCATORS.LOGIN.USERNAME_INPUT); 
+    const validationMessage = await emailInput.evaluate(el => el.validationMessage);
+    console.log(`Validation Message: ${validationMessage}`);
+    expect(validationMessage).toContain("Please fill out this field.");
+    return validationMessage;
+  }
+
+  async emptyPassword() {
+    const passInput = this.page.locator(LOCATORS.LOGIN.PASSWORD_INPUT); 
+    const validationMessage = await passInput.evaluate(el => el.validationMessage);
+    console.log(`Validation Message: ${validationMessage}`);
+    expect(validationMessage).toContain("Please fill out this field.");
+    return validationMessage;
   }
 
   async isDemoHeaderVisible() {

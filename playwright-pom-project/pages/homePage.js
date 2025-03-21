@@ -25,7 +25,7 @@ class HomePage {
   async isHomeHeaderVisible() {
     return await this.page.locator(LOCATORS.HOME_PAGE.HOME_HEADER).isVisible();
   }
-
+  
   async isCounterLabelVisible() {
     return await this.page.locator(LOCATORS.HOME_PAGE.COUNTER).isVisible();
   }
@@ -98,6 +98,11 @@ class HomePage {
     console.log("Logging out...");
     await this.page.click(LOCATORS.HOME_PAGE.LOGOUT_BUTTON);
     await this.page.waitForTimeout(500);
+    // Verify that the user is redirected to the login page
+  if (!(await this.page.locator(LOCATORS.LOGIN.DEMO_HEADER).isVisible())) {
+    throw new Error("Logout failed: User is still on the home page.");
+  }
+  console.log("Logout successful: User redirected to login page.");
   }
 }
 
