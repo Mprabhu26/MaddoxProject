@@ -3,10 +3,10 @@ name: Playwright Tests
 on:
   push:
     branches:
-      - main  # Change this if needed (e.g., develop, staging)
+      - main  # Adjust this if needed
   pull_request:
     branches:
-      - main  # Run tests on PRs too
+      - main
 
 jobs:
   test:
@@ -19,11 +19,17 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18 # Use the same version as your local setup
+          node-version: 18
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install dependencies for Playwright
         run: npm install
+        working-directory: ./playwright-pom-project  # Adjust the folder name if needed
+
+      - name: Install dependencies for QA Homework Mirror
+        run: npm install
+        working-directory: ./qa-homework-mirror  # If required
 
       - name: Start Dev Server & Run Playwright Tests
         run: npx playwright test
+        working-directory: ./playwright-pom-project  # Ensure Playwright runs from the correct directory
