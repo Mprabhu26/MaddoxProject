@@ -1,13 +1,3 @@
-name: Playwright Tests
-
-on:
-  push:
-    branches:
-      - main  # Adjust this if needed
-  pull_request:
-    branches:
-      - main
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -21,19 +11,20 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'  
 
       - name: Install dependencies for Playwright
-        run: npm install
-        working-directory: ./playwright-pom-project  # Adjust the folder name if needed
+        run: npm ci
+        working-directory: ./playwright-pom-project  
 
       - name: Install dependencies for QA Homework Mirror
-        run: npm install
-        working-directory: ./qa-homework-mirror  # If required
+        run: npm ci
+        working-directory: ./qa-homework-mirror  
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-        working-directory: ./playwright-pom-project  # Ensure correct Playwright setup
+        working-directory: ./playwright-pom-project
 
       - name: Start Dev Server & Run Playwright Tests
         run: npx playwright test
-        working-directory: ./playwright-pom-project  # Ensure Playwright runs from the correct directory
+        working-directory: ./playwright-pom-project
