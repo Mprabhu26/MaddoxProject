@@ -30,6 +30,10 @@ jobs:
         run: npm install
         working-directory: ./qa-homework-mirror  # If required
 
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+        working-directory: ./playwright-pom-project  # Ensure correct Playwright setup
+
       - name: Start Dev Server & Run Playwright Tests
         run: npx playwright test
         working-directory: ./playwright-pom-project  # Ensure Playwright runs from the correct directory
